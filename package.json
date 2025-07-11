@@ -13,12 +13,13 @@
 		"format": "prettier --write .",
 		"lint": "prettier --check . && eslint .",
 		"test:unit": "vitest",
-		"test": "npm run test:unit -- --run",
-		"cap:sync": "npm run build && npx cap sync",
-		"cap:ios": "npm run cap:sync && npx cap open ios",
-		"cap:android": "npm run cap:sync && npx cap open android",
-		"cap:build:ios": "npm run build && npx cap sync ios && npx cap build ios",
-		"cap:build:android": "npm run build && npx cap sync android && npx cap build android"
+		"test": "pnpm test:unit -- --run",
+		"cap:sync": "pnpm build && pnpm exec cap sync",
+		"cap:ios": "pnpm cap:sync && pnpm exec cap open ios",
+		"cap:android": "pnpm cap:sync && pnpm exec cap open android",
+		"cap:build:ios": "pnpm build && pnpm exec cap sync ios && pnpm exec cap build ios",
+		"cap:build:android": "pnpm build && pnpm exec cap sync android && pnpm exec cap build android",
+		"supabase-ts": "pnpm dlx supabase gen types typescript --project-id mubgtvvkhcxmmqblssrb > src/lib/types/database.types.ts"
 	},
 	"devDependencies": {
 		"@eslint/compat": "^1.2.5",
