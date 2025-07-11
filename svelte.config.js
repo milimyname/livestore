@@ -7,7 +7,15 @@ const config = {
 	// Consult https://svelte.dev/docs/kit/integrations
 	// for more information about preprocessors
 	preprocess: [vitePreprocess(), mdsvex()],
-	kit: { adapter: adapter() },
+	kit: {
+		adapter: adapter({
+			fallback: 'index.html'
+		})
+	},
+	prerender: {
+		// Generate static files for all routes
+		entries: ['*']
+	},
 	extensions: ['.svelte', '.svx']
 };
 

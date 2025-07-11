@@ -1,6 +1,7 @@
+# Dependencies
 node_modules
 
-# Output
+# SvelteKit Output
 .output
 .vercel
 .netlify
@@ -12,7 +13,7 @@ node_modules
 .DS_Store
 Thumbs.db
 
-# Env
+# Environment variables
 .env
 .env.*
 !.env.example
@@ -21,3 +22,35 @@ Thumbs.db
 # Vite
 vite.config.js.timestamp-*
 vite.config.ts.timestamp-*
+
+# iOS
+ios/App/build/
+ios/App/Pods/
+ios/App/Podfile.lock
+ios/App/*.xcworkspace/xcuserdata/
+ios/App/*.xcodeproj/xcuserdata/
+ios/App/*.xcodeproj/project.xcworkspace/xcuserdata/
+ios/App/App.xcworkspace/xcuserdata/
+ios/App/DerivedData/
+ios/App/*.ipa
+ios/App/*.mobileprovision
+ios/App/*.p12
+ios/App/*.dSYM.zip
+
+# Android
+android/.gradle/
+android/app/build/
+android/build/
+android/gradle/
+android/gradlew
+android/gradlew.bat
+android/local.properties
+android/.idea/
+android/*.iml
+android/app/release/
+android/app/debug/
+android/app/*.apk
+android/app/*.aab
+android/captures/
+android/keystore.properties
+android/app/google-services.json
