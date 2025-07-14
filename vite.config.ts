@@ -4,34 +4,26 @@ import tailwindcss from '@tailwindcss/vite';
 import { sveltekit } from '@sveltejs/kit/vite';
 import { defineConfig } from 'vite';
 // import { spawn } from 'node:child_process';
-import fs from 'fs';
+
+const isProdBuild = process.env.NODE_ENV === 'production';
 
 export default defineConfig({
 	server: {
-		port: 60000,
-		https: {
-			key: fs.readFileSync('./ssl/key.pem'),
-			cert: fs.readFileSync('./ssl/cert.pem')
-		}
+		host: 'localhost',
+		port: 60000
 	},
-	worker: { format: 'es' },
+	worker: isProdBuild ? { format: 'es' } : undefined,
+	optimizeDeps: {
+		// TODO remove once fixed https://github.com/vitejs/vite/issues/8427
+		exclude: ['@livestore/wa-sqlite']
+	},
 	plugins: [
 		tailwindcss(),
 		sveltekit(),
-		// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-		// @ts-expect-error
 		livestoreDevtoolsPlugin({ schemaPath: './src/lib/livestore/schema.ts' }),
-		devtoolsJson()
+		// devtoolsJson()
 
-		// {
-		// 	name: 'wrangler-dev',
-		// 	configureServer() {
-		// 		const wrangler = spawn('bunx', ['wrangler', 'dev', '--port', '8787'], {
-		// 			stdio: ['ignore', 'inherit', 'inherit']
-		// 		});
-		// 		process.on('exit', () => wrangler.kill());
-		// 	}
-		// }
+	
 	],
 
 	test: {

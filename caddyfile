@@ -1,6 +1,0 @@
-
-
-
-https://app.localhost {
-	reverse_proxy 172.20.10.8:60000
-}

@@ -29,13 +29,17 @@
 	};
 </script>
 
-<main>
+<main style="padding-top: 3rem;">
 	<h1>LiveStore + SvelteKit</h1>
 
 	<input
 		bind:value={
-			() => uiState().newTodoText,
-			(v) => data.liveStore.commit(events.uiStateSet({ newTodoText: v.toLowerCase() }))
+			() => {
+				return uiState().newTodoText;
+			},
+			(v) => {
+				return data.liveStore.commit(events.uiStateSet({ newTodoText: v.toLowerCase() }));
+			}
 		}
 		onkeydown={(e) => e.key === 'Enter' && addTodo()}
 		placeholder="What needs to be done?"
@@ -56,6 +60,12 @@
 				/>
 				{todo.text}
 			</li>
+			<button
+				onclick={() =>
+					data.liveStore.commit(events.todoDeleted({ id: todo.id, deletedAt: new Date() }))}
+			>
+				delete
+			</button>
 		{/each}
 	</ul>
 </main>

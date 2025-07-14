@@ -5,8 +5,8 @@ const config: CapacitorConfig = {
 	appName: 'packsil',
 	webDir: 'build',
 	server: {
-		// url: 'http://172.20.10.8:5173/', // !IMPORTANT: remove on deployment
-		url: 'https://172.20.10.8:60000/',
+		// url: 'http://172.20.10.8:60000/', // !IMPORTANT: remove on deployment
+		url: 'http://localhost:60000',
 		cleartext: true,
 		androidScheme: 'https'
 	},
