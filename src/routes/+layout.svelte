@@ -1,7 +1,13 @@
 <script lang="ts">
 	import '../app.css';
 
-	let { children, data } = $props();
+	let { children } = $props();
 </script>
 
-{@render children()}
+<svelte:boundary>
+	{@render children()}
+
+	{#snippet pending()}
+		<p>loading...</p>
+	{/snippet}
+</svelte:boundary>

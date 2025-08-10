@@ -1,18 +1,18 @@
 import type { LiveStoreEvent } from '@livestore/livestore';
 import { toTableName } from '@livestore/sync-electric';
 import postgres from 'postgres';
-// import { env } from '$env/dynamic/private';
+import { env } from '$env/dynamic/private';
 
 export const makeDb = (storeId: string) => {
 	const tableName = toTableName(storeId);
 
-	// const sql = postgres(env.DB_CONNECTION_URL);
-	const sql = postgres({
-		database: 'electric',
-		user: 'postgres',
-		password: 'password',
-		host: 'localhost'
-	});
+	const sql = postgres(env.DB_CONNECTION_URL);
+	// const sql = postgres({
+	// 	database: 'electric',
+	// 	user: 'postgres',
+	// 	password: 'password',
+	// 	host: 'localhost'
+	// });
 
 	const migrate = () =>
 		sql`

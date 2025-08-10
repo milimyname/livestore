@@ -1,8 +1,9 @@
 <script lang="ts">
 	import { events, tables } from '$lib/livestore/schema.js';
 	import { queryDb } from '@livestore/livestore';
+	import { initializeLiveStore } from '$lib/livestore/livestore.svelte';
 
-	let { data } = $props();
+	const liveStore = await initializeLiveStore({ authToken: 'insecure-token-change-me' });
 
 	const uiState$ = queryDb(tables.uiState.get(), { label: 'uiState' });
 	const visibleTodos$ = queryDb(
@@ -16,13 +17,13 @@
 		{ label: 'visibleTodos' }
 	);
 
-	const visibleTodos = data.liveStore.useQuery(visibleTodos$);
-	const uiState = data.liveStore.useQuery(uiState$);
+	const visibleTodos = liveStore.useQuery(visibleTodos$);
+	const uiState = liveStore.useQuery(uiState$);
 
 	const addTodo = () => {
 		const text = uiState().newTodoText.trim();
 		if (!text) return;
-		data.liveStore.commit(
+		liveStore.commit(
 			events.todoCreated({ id: crypto.randomUUID(), text }),
 			events.uiStateSet({ newTodoText: '' })
 		);
@@ -38,7 +39,7 @@
 				return uiState().newTodoText;
 			},
 			(v) => {
-				return data.liveStore.commit(events.uiStateSet({ newTodoText: v.toLowerCase() }));
+				return liveStore.commit(events.uiStateSet({ newTodoText: v.toLowerCase() }));
 			}
 		}
 		onkeydown={(e) => e.key === 'Enter' && addTodo()}
@@ -52,7 +53,7 @@
 					type="checkbox"
 					bind:checked={todo.completed}
 					onchange={() =>
-						data.liveStore.commit(
+						liveStore.commit(
 							todo.completed
 								? events.todoCompleted({ id: todo.id })
 								: events.todoUncompleted({ id: todo.id })
@@ -61,8 +62,7 @@
 				{todo.text}
 			</li>
 			<button
-				onclick={() =>
-					data.liveStore.commit(events.todoDeleted({ id: todo.id, deletedAt: new Date() }))}
+				onclick={() => liveStore.commit(events.todoDeleted({ id: todo.id, deletedAt: new Date() }))}
 			>
 				delete
 			</button>

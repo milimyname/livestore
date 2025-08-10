@@ -16,7 +16,12 @@ const config = {
 		// Generate static files for all routes
 		entries: ['*']
 	},
-	extensions: ['.svelte', '.svx']
+	extensions: ['.svelte', '.svx'],
+	compilerOptions: {
+		experimental: {
+			async: true
+		}
+	}
 };
 
 export default config;
